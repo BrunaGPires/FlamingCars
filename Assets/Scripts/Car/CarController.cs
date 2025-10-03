@@ -35,7 +35,8 @@ public class CarController : MonoBehaviour
     {
         velocityVsUp = Vector2.Dot(transform.up, rb.linearVelocity);
 
-        if (velocityVsUp > maxSpeed && accelerationInput > 0) {
+        if (velocityVsUp > maxSpeed && accelerationInput > 0)
+        {
             return;
         }
 
@@ -44,9 +45,9 @@ public class CarController : MonoBehaviour
             return;
         }
 
-        if (rb.linearVelocity.sqrMagnitude > maxSpeed * maxSpeed && accelerationInput > 0) 
-        { 
-            return; 
+        if (rb.linearVelocity.sqrMagnitude > maxSpeed * maxSpeed && accelerationInput > 0)
+        {
+            return;
         }
 
         Vector2 engineForceVector = transform.up * accelerationInput * accelerationFactor;

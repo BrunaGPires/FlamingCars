@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DentalBox_0: 1377588536577398162
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

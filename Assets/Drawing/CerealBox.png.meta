@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CerealBox_0: 7376010144643004519
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

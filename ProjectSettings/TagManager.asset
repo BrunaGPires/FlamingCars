@@ -7,6 +7,7 @@ TagManager:
   - Car
   - Track
   - Obstacle
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -14,12 +15,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
   - Car
-  - Track
-  - Obstacle
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -41,6 +42,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4039513151
+    locked: 0
+  - name: Track
+    uniqueID: 40700813
+    locked: 0
+  - name: Object
+    uniqueID: 3332646923
+    locked: 0
+  - name: Skidmarks
+    uniqueID: 203144203
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

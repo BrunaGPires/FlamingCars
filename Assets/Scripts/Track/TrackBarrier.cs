@@ -3,10 +3,14 @@ using System.Collections;
 
 public class TrackBarrier : MonoBehaviour
 {
-    [Header("Barrier Settings")]
+    [Header("Collision Settings")]
     public float speedPenalty = 0.5f;
+
+    [Header("Effects")]
     public float shakeIntensity = 0.03f;
     public float shakeDuration = 0.1f;
+    public float blinkInterval = 0.1f;
+    public int blinkCount = 5;
 
     void OnCollisionEnter2D(Collision2D collision)
     {

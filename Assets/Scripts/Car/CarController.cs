@@ -3,16 +3,16 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
     [Header("Car moviment")]
-    public float driftFactor = 0.2f;
-    public float accelerationFactor = 30.0f;
-    public float turnFactor = 2.5f;
-    public float maxSpeed = 15;
+    public float driftFactor = 0.5f;
+    public float accelerationFactor = 20.0f;
+    public float turnFactor = 2.0f;
+    public float maxSpeed = 12;
 
     public float accelerationInput = 0;
     public float turnFactorInput = 0;
 
-    public float minTurnSpeedFactor = 0.3f;
-    public float brakingForce = 8f;
+    public float minTurnSpeedFactor = 0.5f;
+    public float brakingForce = 12f;
 
     public float rotationAngle = 0;
 
@@ -40,7 +40,7 @@ public class CarController : MonoBehaviour
             return;
         }
 
-        if (velocityVsUp < -maxSpeed * 0.3f && accelerationInput < 0)
+        if (velocityVsUp < -maxSpeed * 0.2f && accelerationInput < 0)
         {
             return;
         }
@@ -55,20 +55,21 @@ public class CarController : MonoBehaviour
 
         if (Mathf.Abs(accelerationInput) < 0.1f)
         {
-            rb.linearDamping = Mathf.Lerp(rb.linearDamping, 2.0f, Time.fixedDeltaTime * 3);
+            rb.linearDamping = Mathf.Lerp(rb.linearDamping, 3.0f, Time.fixedDeltaTime * 5);
         }
         else
         {
-            rb.linearDamping = 0.1f;
+            rb.linearDamping = 0.2f;
         }
     }
 
     void Steering()
     {
-        float minSpeedForTurning = (rb.linearVelocity.magnitude / 8);
-        minSpeedForTurning = Mathf.Clamp(minSpeedForTurning, minTurnSpeedFactor, 1f);
+        float currentSpeed = rb.linearVelocity.magnitude;
+        float speedFactor = Mathf.Clamp01(currentSpeed / maxSpeed);
+        float turnSpeedMultiplier = Mathf.Lerp(0.3f, 1.0f, speedFactor);
 
-        rotationAngle -= turnFactorInput * turnFactor * minSpeedForTurning;
+        rotationAngle -= turnFactorInput * turnFactor * turnSpeedMultiplier * Time.fixedDeltaTime * 50f;
 
         rb.MoveRotation(rotationAngle);
     }
@@ -86,5 +87,38 @@ public class CarController : MonoBehaviour
     {
         turnFactorInput = inputVector.x;
         accelerationInput = inputVector.y;
+    }
+
+    public void ApplySpeedPenalty(float penaltyMultiplier)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity *= penaltyMultiplier;
+        }
+    }
+
+    float GetLateralVelocity()
+    {
+        return Vector2.Dot(transform.right, rb.linearVelocity);
+    }
+
+    public bool IsTireScreeching(out float lateralVelocity, out bool isBraking)
+    {
+        lateralVelocity = GetLateralVelocity();
+        isBraking = false;
+
+        if (accelerationInput < 0 && velocityVsUp > 0)
+        {
+            isBraking = true;
+            return true;
+        }
+
+        if (Mathf.Abs(GetLateralVelocity()) > 4.0f)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

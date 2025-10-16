@@ -1,8 +1,12 @@
 using UnityEngine;
 using System;
+using System.Collections;
+using UnityEngine.UI;
 
 public class CarLapCounter : MonoBehaviour
 {
+    public Text carPositionText;
+
     int passedCheckPointNumber = 0;
     float timeAtLastPassedCheckPoint = 0;
 
@@ -14,6 +18,9 @@ public class CarLapCounter : MonoBehaviour
     bool isRaceCompleted = false;
 
     int carPosition = 0;
+
+    bool isHideRoutineRunning = false;
+    float hideUIDelayTime;
 
     public event Action<CarLapCounter> OnPassCheckpoint;
 
@@ -30,6 +37,28 @@ public class CarLapCounter : MonoBehaviour
     public float GetTimeAtLastCheckpoint()
     {
         return timeAtLastPassedCheckPoint;
+    }
+
+    IEnumerator ShowPositionCO(float delayUntilHidePosition)
+    {
+        hideUIDelayTime = delayUntilHidePosition;
+
+        carPositionText.text = carPosition.ToString();
+
+        carPositionText.gameObject.SetActive(true);
+
+        if (!isHideRoutineRunning)
+        {
+            isHideRoutineRunning = true;
+
+            yield return new WaitForSeconds(hideUIDelayTime);
+
+            carPositionText.gameObject.SetActive(false);
+
+            isHideRoutineRunning = false;
+        }
+
+        
     }
 
     void OnTriggerEnter2D(Collider2D collider2d)
@@ -64,6 +93,21 @@ public class CarLapCounter : MonoBehaviour
                 }
 
                 OnPassCheckpoint?.Invoke(this);
+
+                if (isRaceCompleted)
+                {
+                    StartCoroutine(ShowPositionCO(100));
+
+                    if (CompareTag("Car"))
+                    {
+                        GameManager.instance.OnRaceCompleted();
+                        GetComponent<CarInputHandler>().enabled = false;
+                    }
+                }
+                else if (checkPoint.isFinishLine)
+                {
+                    StartCoroutine(ShowPositionCO(1.5f));
+                }
             }
         }
     }

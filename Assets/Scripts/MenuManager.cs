@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour
         selectPanel.SetActive(false);
 
         firstTrackBT.interactable = true;
-        secondTrackBT.interactable = false;
+        secondTrackBT.interactable = true;
     }
 
     public void OpenSelectPanel()

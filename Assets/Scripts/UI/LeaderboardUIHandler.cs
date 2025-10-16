@@ -6,7 +6,17 @@ public class LeaderboardUIHandler : MonoBehaviour
 {
     public GameObject leaderboardItemPrefab;
     private LeaderboardInfo[] leaderboardInfo;
-    private CarLapCounter[] carLapCounterArray;
+
+    bool isInitialized = false;
+    Canvas canvas;
+
+    void Awake()
+    {
+        canvas = GetComponent<Canvas>();
+
+        GameManager.instance.OnGameStateChanged += OnGameStateChanged;
+
+    }
 
     void Start()
     {
@@ -17,19 +27,7 @@ public class LeaderboardUIHandler : MonoBehaviour
     {
         VerticalLayoutGroup leaderboardLayoutGroup = GetComponentInChildren<VerticalLayoutGroup>();
 
-        if (leaderboardLayoutGroup == null)
-        {
-            Debug.LogError("VerticalLayoutGroup não encontrado!");
-            return;
-        }
-
-        if (leaderboardItemPrefab == null)
-        {
-            Debug.LogError("LeaderboardItemPrefab não está atribuído no Inspector!");
-            return;
-        }
-
-        carLapCounterArray = FindObjectsOfType<CarLapCounter>();
+        CarLapCounter[] carLapCounterArray = FindObjectsOfType<CarLapCounter>();
         leaderboardInfo = new LeaderboardInfo[carLapCounterArray.Length];
 
         Debug.Log($"Encontrados {carLapCounterArray.Length} carros para o leaderboard");
@@ -55,6 +53,9 @@ public class LeaderboardUIHandler : MonoBehaviour
                 leaderboardInfo[i].SetDriverNameText("Aguardando...");
             }
         }
+
+        Canvas.ForceUpdateCanvases();
+        isInitialized = true;
     }
 
     public void UpdateList(List<CarLapCounter> lapCounters)
@@ -69,5 +70,18 @@ public class LeaderboardUIHandler : MonoBehaviour
                 leaderboardInfo[i].SetDriverNameText(lapCounters[i].gameObject.name);
             }
         }
+    }
+
+    void OnGameStateChanged(GameManager gameManager)
+    {
+        if (GameManager.instance.GetGameStates() == GameStates.raceOver)
+        {
+            canvas.enabled = true;
+        }
+    }
+
+    void OnDestroy()
+    {
+        GameManager.instance.OnGameStateChanged -= OnGameStateChanged;
     }
 }

@@ -276,30 +276,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 866702255788410330, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 866702255788410330, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 866702255788410330, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 866702255788410330, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -6.163
-      objectReference: {fileID: 0}
-    - target: {fileID: 2105325312631931185, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3995421069516427099, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4223822867316736915, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -385,7 +361,9 @@ PrefabInstance:
       value: Canvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7868163849969809792, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
+    - {fileID: 7188597999155802665, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50b5abca725576e40bb9b13ca6a6b134, type: 3}
@@ -855,6 +833,7 @@ GameObject:
   - component: {fileID: 381645178}
   - component: {fileID: 381645177}
   - component: {fileID: 381645176}
+  - component: {fileID: 381645181}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1012,6 +991,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &381645181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381645175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72f70ac10e256a4d978a45d338caa31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carLapCounters: []
 --- !u!1 &421845806
 GameObject:
   m_ObjectHideFlags: 0
